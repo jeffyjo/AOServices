@@ -1,20 +1,70 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="nav">
+  <button *ngIf="recipes[0]" (click)="numberPressed(0)">{{ recipes[0].name }}</button>
+  <button *ngIf="recipes[1]" (click)="numberPressed(1)">{{ recipes[1].name }}</button>
+  <button *ngIf="recipes[2]" (click)="numberPressed(2)">{{ recipes[2].name }}</button>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+<div class="container">
+  <form #f="ngForm">
+    <div class="item">
+      <label for="">Id:</label>
+      <label for="">{{ recipes[recipeNumber].id }}</label>
+    </div>
+    <div class="item">
+      <label for="">Name: </label>
+      <input type="text" name="name" [(ngModel)]="recipes[recipeNumber].name">
+    </div>
+    <div class="item">
+      <label for="">Description: </label>
+      <input type="text" name="desciption" [(ngModel)]="recipes[recipeNumber].description">
+    </div>
+    <div class="item">
+      <label for="">Picture: </label>
+      <label for="">{{ recipes[recipeNumber].picture }}</label>
+    </div>
+    <br>
+    <div *ngFor="let i of recipes[recipeNumber].ingridients; let x = index" class="item-ingridients">
+      <label for="">Ingridient: </label>
+      <label for="">id: </label>
+      <label for="">{{ i.id }}</label>
+      <label for="">name: </label>
+      <input type="text" name="ingridientName{{x}}" [(ngModel)]="i.name">
+      <label for="">amount: </label>
+      <input type="text" name="amount{{x}}" [(ngModel)]="i.amount">
+      <label for="">unit: </label>
+      <input type="text" name="unit{{x}}" [(ngModel)]="i.unit">
+    </div>
+    <br>
+    <div *ngFor="let i of recipes[recipeNumber].steps; let x = index" class="item-steps">
+      <label for="">Step: </label>
+      <label for="">{{ i.id }}</label>
+      <label for="">description: </label>
+      <input type="text" name="name{{x}}" [(ngModel)]="i.description">
+    </div>
+    <br>
+    <div *ngFor="let i of recipes[recipeNumber].tools.primary; let x = index" class="item-ingridients">
+      PRIMARY
+      <label for="">Tool: </label>
+      <label for="">id: </label>
+      <label for="">{{ i.id }}</label>
+      <label for="">description: </label>
+      <input type="text" name="description{{x}}" [(ngModel)]="i.description" >
+    </div>
+    <div *ngFor="let i of recipes[recipeNumber].tools.secondary" class="item-ingridients">
+        SECONDARY
+        <label for="">Tool: </label>
+        <label for="">id: </label>
+        <label for="">{{ i.id }}</label>
+        <label for="">description: </label>
+        <input type="text" name="description{{x}}" [(ngModel)]="i.description" >
+      </div>
+    <div class="item">
+        <label for="">isPublic: </label>
+        <label for="">{{ recipes[recipeNumber].isPublic }}</label>
+    </div>
+    <button (click)="deletedPressed()">Delete</button>
+    <button (click)="savePressed()">Save</button>
+  </form>
+</div>
 
